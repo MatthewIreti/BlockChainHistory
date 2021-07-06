@@ -1,0 +1,9 @@
+﻿/BlockHistory/bin/Debug/netcoreapp3.1
+/BlockHistory/obj
+/BlockHistory/BlockHistory-log.db
+/BlockHistory/BlockHistory.db
+/BlockHistoryApp.Repository/bin/Debug/netcoreapp3.1
+/BlockHistoryApp.Repository/obj/Debug/netcoreapp3.1
+/BlockHistoryApp.Repository/obj
+/BlockHistoryApp.Service/bin/Debug/netcoreapp3.1
+/BlockHistoryApp.Service/obj
