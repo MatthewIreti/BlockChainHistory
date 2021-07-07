@@ -4,12 +4,15 @@ using BlockHistoryApp.Service.Common;
 using Flurl.Http;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockHistoryApp.Service
 {
     public interface IEtherumService
     {
+        Task<Response<BlockEntity>> DeleteAll();
+        Task<Response<BlockEntity>> DeleteById(int id);
         Task<Response<IEnumerable<BlockEntity>>> GetAll();
     }
 
@@ -27,12 +30,40 @@ namespace BlockHistoryApp.Service
             try
             {
                 GetBlockByNumber();
-                var data =  _repository.GetAll();
+                var data =  _repository.GetAll().OrderByDescending(x=>x.Id);
                 response = Response<IEnumerable<BlockEntity>>.Success(data);
             }
             catch (Exception ex)
             {
                 response = Response<IEnumerable<BlockEntity>>.Failed(ex.Message);
+            }
+            return await Task.FromResult(response);
+        }
+        public async Task<Response<BlockEntity>> DeleteAll()
+        {
+            var response = Response<BlockEntity>.Failed();
+            try
+            {
+                 _repository.DeleteAll();
+                response = Response<BlockEntity>.Success(null);
+            }
+            catch (Exception ex)
+            {
+                response = Response<BlockEntity>.Failed(ex.Message);
+            }
+            return await Task.FromResult(response);
+        }
+        public async Task<Response<BlockEntity>> DeleteById(int id)
+        {
+            var response = Response<BlockEntity>.Failed();
+            try
+            {
+                _repository.Delete(id);
+                response = Response<BlockEntity>.Success(null);
+            }
+            catch (Exception ex)
+            {
+                response = Response<BlockEntity>.Failed(ex.Message);
             }
             return await Task.FromResult(response);
         }

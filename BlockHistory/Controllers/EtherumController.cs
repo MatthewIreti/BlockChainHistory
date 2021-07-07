@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlockHistory.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ethereum")]
     [ApiController]
     public class EtherumController : ControllerBase
     {
@@ -36,6 +36,38 @@ namespace BlockHistory.Controllers
             catch (Exception ex)
             {
                 return BadRequest(Response<IReadOnlyList<BlockEntity>>.Failed(ex.Message));
+            }
+        }
+
+        [HttpDelete("delete-all")]
+        public async Task<ActionResult<Response<BlockEntity>>> DeletAll()
+        {
+            try
+            {
+                var response = await _service.DeleteAll();
+                if (response.Status)
+                    return Ok(response);
+                return BadRequest(Response<BlockEntity>.Failed(response.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(Response<BlockEntity>.Failed(ex.Message));
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Response<BlockEntity>>> DeleteById(int id)
+        {
+            try
+            {
+                var response = await _service.DeleteById(id);
+                if (response.Status)
+                    return Ok(response);
+                return BadRequest(Response<BlockEntity>.Failed(response.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(Response<BlockEntity>.Failed(ex.Message));
             }
         }
     }

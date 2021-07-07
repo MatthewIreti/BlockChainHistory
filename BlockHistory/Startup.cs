@@ -25,6 +25,7 @@ namespace BlockHistory
         {
             services.Configure<LiteDbOptions>(Configuration.GetSection("DbOptions"));
             services.AddSingleton<ILiteDbContext, LiteDbContext>();
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -46,6 +47,10 @@ namespace BlockHistory
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(c =>
+           c.AllowAnyOrigin().
+           AllowAnyMethod().
+           AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
@@ -53,12 +58,14 @@ namespace BlockHistory
 
             app.UseAuthorization();
 
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-            app.UseCors(c =>
-            c.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
