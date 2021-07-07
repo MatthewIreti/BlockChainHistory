@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="card">
+    <div class="card-header">
+      <h4>Block List History</h4>
+      <div>
+        <div>
+          <div class="form-group">
+            <form class="row gx-3 gy-2 align-items-center">
+              <div class="col-sm-3">
+                <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+                <select (change)="sortData($event.target.value)" class="form-select" id="specificSizeSelect">
+                  <option>Sort by...</option>
+                  <option value="1">Gas limit</option>
+                  <option value="2">Gas Used</option>
+                  <option value="3">Hash</option>
+                  <option value="4">Size</option>
+                  <option value="5">Timestamp</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+                <select class="form-select" id="specificSizeSelect">
+                  <option value="0" selected>Ascending</option>
+                  <option value="1">Descending</option>
+                </select>
+              </div>
+
+              <div class="col-auto">
+                <button type="submit" class="btn btn-danger">Delete All</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="card-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col mb-1 border border-light border-3 rounded" *ngFor="let item of items"
+              style="background-color: rgb(236, 229, 220); margin-right:3px; padding: 10px;">
+              <h3>{{item.id}}</h3>
+              <p><span class="fw-bold">Gas Limit :</span> <span>{{item.gasLimit}}</span></p>
+              <p><span class="fw-bold">Gas Used :</span> <span>{{item.gasUsed}}</span></p>
+              <p><span class="fw-bold">Hash: </span> <span>{{item.hash}}</span></p>
+              <p><span class="fw-bold">Nonce : </span> <span>{{item.nonce}}</span></p>
+              <p><span class="fw-bold">Number: </span> <span>{{item.number}}</span></p>
+              <p><span class="fw-bold">Size:</span> <span>{{item.size}}</span></p>
+              <p> <span class="fw-bold">Timestamp :</span> <span>{{item.timestamp}}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <router-outlet></router-outlet>
